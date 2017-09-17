@@ -5,6 +5,9 @@
  */
 package ControlReservas;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -141,7 +144,11 @@ public class Login extends javax.swing.JFrame {
 
     private void BconfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BconfirmarActionPerformed
         if(RbAluno.isSelected()){
-            JOptionPane.showMessageDialog(null, "aluno");
+            try {
+                Controle.autenticarAluno(CampoLogin.getText(),CampoSenha.getText());
+            } catch (SQLException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         else if(RbProfessor.isSelected()){
             JOptionPane.showMessageDialog(null, "professor");

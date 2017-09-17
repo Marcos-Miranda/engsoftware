@@ -2,6 +2,7 @@ package ControlReservas;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -11,6 +12,7 @@ public class Bd{
 	static Connection connection = null;
 	static ResultSet result      = null;
 	static Statement statement   = null;
+
 
 	//Dados do SGBD
 	static String  usuario = "postgres";
@@ -73,14 +75,18 @@ public class Bd{
 		}
 		close();
 	}
+        
 
 
 	//metodo para a execucao de uma consulta
-	public static void setResult(String sql){
+	public static int consultaId(String sql,int id){
 		ResultSet result = null;
 		try{
 			getConect();
-			result = statement.executeQuery(sql);
+			//result = statement.executeQuery(sql);
+                        PreparedStatement st = connection.prepareStatement(sql);
+                        st.setInt(1,id);
+                        result = st.executeQuery();
 			
 		}	
 		catch(SQLException erro){
@@ -88,9 +94,11 @@ public class Bd{
 			System.exit(0);
 		}
 		try{
-			while(result.next()){
-				System.out.println("\nCPF...: "+ result.getInt("num"));
-				System.out.print("Nome..: "+result.getString("texto")+"\n");
+			if(result.next()){
+                            
+                            return result.getInt("Status");
+				//System.out.println("\nCPF...: "+ result.getInt("num"));
+				//System.out.print("Nome..: "+result.getString("texto")+"\n");
 
 			}
 		}
@@ -98,6 +106,7 @@ public class Bd{
 			System.out.println("Error de SQL "+errSql+"! -- Erro na Consulta");
 			System.exit(0);	
 		}
+                return 0;
     	}
 
 
