@@ -151,7 +151,11 @@ public class Login extends javax.swing.JFrame {
             }
         }
         else if(RbProfessor.isSelected()){
-            JOptionPane.showMessageDialog(null, "professor");
+            try {
+                Controle.autenticarProfessor(CampoLogin.getText(),CampoSenha.getText());
+            } catch (SQLException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
         }
         else{

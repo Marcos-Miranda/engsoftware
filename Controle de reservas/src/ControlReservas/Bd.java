@@ -106,7 +106,40 @@ public class Bd{
 			System.out.println("Error de SQL "+errSql+"! -- Erro na Consulta");
 			System.exit(0);	
 		}
+                close();
                 return 0;
+    	}
+        
+        //metodo para a execucao de uma consulta
+	public static String consultaSenha(String sql,int login){
+		ResultSet result = null;
+		try{
+			getConect();
+			//result = statement.executeQuery(sql);
+                        PreparedStatement st = connection.prepareStatement(sql);
+                        st.setInt(1,login);
+                        result = st.executeQuery();
+			
+		}	
+		catch(SQLException erro){
+			System.out.println("\n\nErro de SQL BDConecta "+erro+"! -- de SQL em BDConecta");
+			System.exit(0);
+		}
+		try{
+			if(result.next()){
+                            
+                            return result.getString("Senha");
+				//System.out.println("\nCPF...: "+ result.getInt("num"));
+				//System.out.print("Nome..: "+result.getString("texto")+"\n");
+
+			}
+		}
+		catch(SQLException errSql){
+			System.out.println("Error de SQL "+errSql+"! -- Erro na Consulta");
+			System.exit(0);	
+		}
+                close();
+                return "0";
     	}
 
 

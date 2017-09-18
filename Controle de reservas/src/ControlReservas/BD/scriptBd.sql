@@ -55,3 +55,5 @@ create table Reserva(
 insert into Aluno values(1693190,'Adalberto Ribeiro','aaa123'),(1708561,'João Marcos Arruda Sampaio','345543efdsf@@'),
 (982346,'Samira Oliveira','abcd4321'),(1903134,'Josimar Antônio Gallardo dos Santos Júnior','$$@@$$66624');
 
+insert into Professor values(113,'José Fernando Antônio','123321'),(40,'Sandra Mara','aBaBaBC'),
+(2,'Fabio Campos Poderoso','666'),(25,'Gabriel Canhadas Gengivir','age3');
