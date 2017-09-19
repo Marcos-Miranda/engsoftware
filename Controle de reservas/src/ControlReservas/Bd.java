@@ -87,6 +87,7 @@ public class Bd{
                         PreparedStatement st = connection.prepareStatement(sql);
                         st.setInt(1,id);
                         result = st.executeQuery();
+                        
 			
 		}	
 		catch(SQLException erro){
@@ -119,7 +120,6 @@ public class Bd{
                         PreparedStatement st = connection.prepareStatement(sql);
                         st.setInt(1,login);
                         result = st.executeQuery();
-			
 		}	
 		catch(SQLException erro){
 			System.out.println("\n\nErro de SQL BDConecta "+erro+"! -- de SQL em BDConecta");
@@ -133,11 +133,13 @@ public class Bd{
 				//System.out.print("Nome..: "+result.getString("texto")+"\n");
 
 			}
+                    
+                       
 		}
 		catch(SQLException errSql){
 			System.out.println("Error de SQL "+errSql+"! -- Erro na Consulta");
 			System.exit(0);	
-		}
+                }
                 close();
                 return "0";
     	}

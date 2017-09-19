@@ -22,16 +22,22 @@ public class Controle {
      * @throws SQLException
      */
     public static void autenticarAluno(String login,String senha) throws SQLException{
-        if(Bd.consultaId("Select count(RA) as Status from Aluno where RA = ?",Integer.parseInt(login))==1){
-            if(Bd.consultaSenha("Select Senha from Aluno where RA = ?",Integer.parseInt(login)).equals(senha)){
-                JOptionPane.showMessageDialog(null,"Aluno autenticado");
+        try{
+            int s = Integer.parseInt(login);
+            if(Bd.consultaId("Select count(RA) as Status from Aluno where RA = ?", s)==1){
+                if(Bd.consultaSenha("Select Senha from Aluno where RA = ?", s).equals(senha)){
+                    JOptionPane.showMessageDialog(null,"Aluno autenticado");
+                }
+                else{
+                    JOptionPane.showMessageDialog(null,"Senha inválida");
+                }
             }
             else{
-                JOptionPane.showMessageDialog(null,"Senha inválida");
+                JOptionPane.showMessageDialog(null,"RA informado não consta na base de dados");
             }
         }
-        else{
-            JOptionPane.showMessageDialog(null,"Login inválido");
+        catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null,"RA inválido, o valor deve ser um número inteiro");
         }
     }
     
