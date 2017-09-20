@@ -1,58 +1,80 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package ControlReservas;
 
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author marki
- */
+//Classe para fazer intermédio entre a interface e o banco de dados.
+
+
 public class Controle {
     
-    /**
-     *
-     * @param login
-     * @param Senha
-     * @throws SQLException
-     */
-    public static void autenticarAluno(String login,String senha) throws SQLException{
+    //Método para autenticação do aluno
+    public static String autenticarAluno(String login,String senha) throws SQLException{
+        String saida;
         try{
             int s = Integer.parseInt(login);
-            if(Bd.consultaId("Select count(RA) as Status from Aluno where RA = ?", s)==1){
-                if(Bd.consultaSenha("Select Senha from Aluno where RA = ?", s).equals(senha)){
-                    JOptionPane.showMessageDialog(null,"Aluno autenticado");
+            if(s>=1){
+                if(senha.length() >= 3 && senha.length() <= 20 ){
+                    if(Bd.consultaId("Select count(RA) as Status from Aluno where RA = ?", s)==1){
+                        if(Bd.consultaSenha("Select Senha from Aluno where RA = ?", s).equals(senha)){
+                            saida = "Aluno autenticado";
+                        }
+                        else{
+                            saida = "Senha inválida";
+                        }
+                    }
+                    else{
+                        saida = "RA informado não consta na base de dados";
+                    }
                 }
                 else{
-                    JOptionPane.showMessageDialog(null,"Senha inválida");
+                    saida = "Senha deve ter entre 3 e 20 caracteres";
                 }
             }
             else{
-                JOptionPane.showMessageDialog(null,"RA informado não consta na base de dados");
+                saida = "RA inválido, o valor deve ser maior ou igual a 1";
             }
         }
         catch(NumberFormatException e){
-            JOptionPane.showMessageDialog(null,"RA inválido, o valor deve ser um número inteiro");
+            saida = "RA inválido, o valor deve ser um número inteiro";
         }
+        JOptionPane.showMessageDialog(null,saida);
+        return saida;
+        
     }
     
-    public static void autenticarProfessor(String login,String senha) throws SQLException{
-        if(Bd.consultaId("Select count(IdProfessor) as Status from Professor where IdProfessor = ?",Integer.parseInt(login))==1){
-            if(Bd.consultaSenha("Select Senha from Professor where IdProfessor = ?",Integer.parseInt(login)).equals(senha)){
-                JOptionPane.showMessageDialog(null,"Professor autenticado");
+    //Método para autenticação do professor
+    public static String autenticarProfessor(String login,String senha) throws SQLException{
+        String saida;
+        try{
+            int s = Integer.parseInt(login);
+            if(s>=1){
+                if(senha.length() >= 3 && senha.length() <= 20 ){
+                    if(Bd.consultaId("Select count(IdProfessor) as Status from Professor where IdProfessor = ?",s)==1){
+                        if(Bd.consultaSenha("Select Senha from Professor where IdProfessor = ?",s).equals(senha)){
+                            saida = "Professor autenticado";
+                        }
+                        else{
+                            saida = "Senha inválida";
+                        }
+                    }
+                    else{
+                        saida = "RA informado não consta na base de dados";
+                    }
+                }
+                else{
+                    saida = "Senha deve ter entre 3 e 20 caracteres";
+                }
             }
             else{
-                JOptionPane.showMessageDialog(null,"Senha inválida");
+                saida = "RA inválido, o valor deve ser maior ou igual a 1";
             }
         }
-        else{
-            JOptionPane.showMessageDialog(null,"Login inválido");
+        catch(NumberFormatException e){
+            saida = "RA inválido, o valor deve ser um número inteiro";
         }
+        JOptionPane.showMessageDialog(null,saida);
+        return saida;
     }
     
 }
