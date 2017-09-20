@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ControlReservas;
 
 import java.sql.SQLException;
@@ -10,10 +6,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author marki
- */
+//Interface da tela de login do usuário
+
 public class Login extends javax.swing.JFrame {
 
     /**
@@ -41,6 +35,7 @@ public class Login extends javax.swing.JFrame {
         lSenha = new javax.swing.JLabel();
         CampoLogin = new javax.swing.JTextField();
         CampoSenha = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,7 +64,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        lLogin.setText("Login:");
+        lLogin.setText("Login (RA):");
 
         lSenha.setText("Senha:");
 
@@ -79,37 +74,40 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setText("Autenticação Obrigatória");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(152, 152, 152)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(176, 176, 176)
-                        .addComponent(Bconfirmar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(71, 71, 71)
                         .addComponent(lfunção)
-                        .addGap(42, 42, 42)
+                        .addGap(29, 29, 29)
+                        .addComponent(RbAluno)
+                        .addGap(28, 28, 28)
+                        .addComponent(RbProfessor))
+                    .addComponent(lSenha)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lLogin)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lLogin)
-                                .addGap(33, 33, 33)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(CampoSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                                    .addComponent(CampoLogin)))
-                            .addComponent(lSenha)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(RbAluno)
-                                .addGap(51, 51, 51)
-                                .addComponent(RbProfessor)))))
-                .addContainerGap(164, Short.MAX_VALUE))
+                            .addComponent(Bconfirmar)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(CampoLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                                .addComponent(CampoSenha)))))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(58, 58, 58)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lLogin)
                     .addComponent(CampoLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -117,7 +115,7 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lSenha)
                     .addComponent(CampoSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lfunção)
                     .addComponent(RbAluno)
@@ -144,19 +142,42 @@ public class Login extends javax.swing.JFrame {
 
     private void BconfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BconfirmarActionPerformed
         if(RbAluno.isSelected()){
-            try {
-                Controle.autenticarAluno(CampoLogin.getText(),CampoSenha.getText());
-            } catch (SQLException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            if(CampoLogin.getText().trim().equals("") && CampoSenha.getText().trim().equals("")){
+                JOptionPane.showMessageDialog(null,"Os campos não foram preenchidos");
+            }
+            else if(CampoLogin.getText().trim().equals("")){
+                JOptionPane.showMessageDialog(null,"Preencha o campo Login antes de confirmar");
+            }
+            else if(CampoSenha.getText().trim().equals("")){
+                JOptionPane.showMessageDialog(null,"Preencha o campo Senha antes de confirmar");
+            }
+            else{
+                try {
+                    Controle.autenticarAluno(CampoLogin.getText(),CampoSenha.getText());
+                } 
+                catch (SQLException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
         else if(RbProfessor.isSelected()){
-            try {
-                Controle.autenticarProfessor(CampoLogin.getText(),CampoSenha.getText());
-            } catch (SQLException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            if(CampoLogin.getText().trim().equals("") && CampoSenha.getText().trim().equals("")){
+                JOptionPane.showMessageDialog(null,"Os campos não foram preenchidos");
             }
-            
+            else if(CampoLogin.getText().trim().equals("")){
+                JOptionPane.showMessageDialog(null,"Preencha o campo Login antes de confirmar");
+            }
+            else if(CampoSenha.getText().trim().equals("")){
+                JOptionPane.showMessageDialog(null,"Preencha o campo Senha antes de confirmar");
+            }
+            else{
+                try {
+                    Controle.autenticarProfessor(CampoLogin.getText(),CampoSenha.getText());
+                } 
+                catch (SQLException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }    
         }
         else{
             JOptionPane.showMessageDialog(null, "Nenhuma opção foi selecionada");
@@ -205,6 +226,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JTextField CampoSenha;
     private javax.swing.JRadioButton RbAluno;
     private javax.swing.JRadioButton RbProfessor;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lLogin;
     private javax.swing.JLabel lSenha;
     private javax.swing.JLabel lfunção;
