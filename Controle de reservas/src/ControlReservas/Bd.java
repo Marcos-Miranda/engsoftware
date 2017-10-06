@@ -34,33 +34,33 @@ public class Bd{
     }
 
 
-	//metodo para a execucao de uma inserção
-	/*public static void inSQL(String sql){
-		boolean boolIns = false;
-		try{
-			getConect();
-			boolIns = statement.execute(sql);
-		}
-		catch(SQLException erro){
-			System.out.println("\n\nErro de SQL BDConecta "+erro+"! -- de SQL em BDConecta");
-		}
-		close();
-	}*/
+    //metodo para a execucao de uma inserção
+    /*public static void inSQL(String sql){
+            boolean boolIns = false;
+            try{
+                    getConect();
+                    boolIns = statement.execute(sql);
+            }
+            catch(SQLException erro){
+                    System.out.println("\n\nErro de SQL BDConecta "+erro+"! -- de SQL em BDConecta");
+            }
+            close();
+    }*/
 
 
-	//metodo para a execucao de uma atualização
-	/*public static void updSQL(String sql){
-		int intUpd = 0;
-		try{
-			getConect();
-			intUpd = statement.executeUpdate(sql);
-		}
-		catch(SQLException erro){
-			System.out.println("Erro ao Atualizar! "+erro);
-		}
-		close();
-	}*/
-        
+    //metodo para a execucao de uma atualização
+    /*public static void updSQL(String sql){
+            int intUpd = 0;
+            try{
+                    getConect();
+                    intUpd = statement.executeUpdate(sql);
+            }
+            catch(SQLException erro){
+                    System.out.println("Erro ao Atualizar! "+erro);
+            }
+            close();
+    }*/
+
 
 
     //método para a execução de uma consulta para verificar se o login informado consta no banco de dados
