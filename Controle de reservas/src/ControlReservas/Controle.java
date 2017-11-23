@@ -145,4 +145,20 @@ public class Controle {
         return l;
     }
     
+    //Método para verificar campos da tela de login
+    public static String verificaCampos(String c1,String c2){
+        if(c1.equals("") && c2.equals("")){
+            return "Os campos não foram preenchidos";
+        }
+        else if(c1.equals("")){
+            return "Preencha o campo Login antes de confirmar";
+        }
+        else if(c2.equals("")){
+            return "Preencha o campo Senha antes de confirmar";
+        }
+        else{
+            return "Ok";
+        }
+    }
+    
 }

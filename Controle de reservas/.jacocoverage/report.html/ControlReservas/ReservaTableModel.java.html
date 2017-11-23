@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ReservaTableModel.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Controle_de_reservas&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">ControlReservas</a> &gt; <span class="el_source">ReservaTableModel.java</span></div><h1>ReservaTableModel.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ControlReservas;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import javax.swing.table.AbstractTableModel;
+
+/**
+ *
+ * @author marki
+ */
+public class ReservaTableModel extends AbstractTableModel {
+    // Lista de Reservas a serem exibidos na tabela
+    private List&lt;Reserva&gt; linhas;
+ 
+    // Cria um ReservaTableModel sem nenhuma linha
+<span class="fc" id="L22">    public ReservaTableModel() {</span>
+<span class="fc" id="L23">        linhas = new ArrayList&lt;Reserva&gt;();</span>
+<span class="fc" id="L24">    }</span>
+ 
+    // Cria um ReservaTableModel contendo a lista recebida por parâmetro
+<span class="nc" id="L27">    public ReservaTableModel(List&lt;Reserva&gt; listaDeReservas) {</span>
+<span class="nc" id="L28">        linhas = new ArrayList&lt;Reserva&gt;(listaDeReservas);</span>
+<span class="nc" id="L29">    }</span>
+    
+    // Array com os nomes das colunas.
+<span class="pc" id="L32">    private String[] colunas = new String[] { &quot;Sala&quot;, &quot;Horario&quot;,&quot;Data&quot;};</span>
+    
+    // Constantes representando o índice das colunas
+    private static final int SALA = 0;
+    private static final int HORARIO = 1;
+    private static final int DATA = 2;
+    
+    @Override
+    public int getRowCount() {
+<span class="fc" id="L41">        return linhas.size();</span>
+    }
+    
+    @Override
+    public int getColumnCount() {
+<span class="fc" id="L46">        return colunas.length;</span>
+    }
+    
+    @Override
+    public String getColumnName(int columnIndex) {
+<span class="fc" id="L51">        return colunas[columnIndex];</span>
+    }
+    
+    @Override
+    public Class&lt;?&gt; getColumnClass(int columnIndex) {
+<span class="nc bnc" id="L56" title="All 4 branches missed.">        switch (columnIndex) {</span>
+        case SALA:
+<span class="nc" id="L58">            return String.class;</span>
+        case HORARIO:
+<span class="nc" id="L60">            return String.class;</span>
+        case DATA:
+<span class="nc" id="L62">            return Date.class;</span>
+        default:
+            // Não deve ocorrer, pois só existem 3 colunas
+<span class="nc" id="L65">            throw new IndexOutOfBoundsException(&quot;columnIndex out of bounds&quot;);</span>
+        }
+    }
+    
+    @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+<span class="nc" id="L71">        return false;</span>
+    }
+    
+    @Override
+    public Object getValueAt(int rowIndex, int columnIndex) {
+       // Pega a reserva referente a linha especificada.
+<span class="nc" id="L77">        Reserva reserva = linhas.get(rowIndex);</span>
+
+<span class="nc bnc" id="L79" title="All 4 branches missed.">        switch (columnIndex) {</span>
+        case SALA:
+<span class="nc" id="L81">            return reserva.getSala();</span>
+        case HORARIO:
+<span class="nc" id="L83">            return reserva.getHorario();</span>
+        case DATA:
+<span class="nc" id="L85">            return reserva.getData();</span>
+        default:
+            // Não deve ocorrer, pois só existem 3 colunas
+<span class="nc" id="L88">            throw new IndexOutOfBoundsException(&quot;columnIndex out of bounds&quot;);</span>
+        }
+    }
+    
+    @Override
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+        // Pega a reserva referente a linha especificada.
+<span class="nc" id="L95">        Reserva reserva= linhas.get(rowIndex);</span>
+
+<span class="nc bnc" id="L97" title="All 4 branches missed.">        switch (columnIndex) {</span>
+        case SALA:
+<span class="nc" id="L99">            reserva.setSala((String) aValue);</span>
+<span class="nc" id="L100">            break;</span>
+        case HORARIO:
+<span class="nc" id="L102">            reserva.setHorario((String) aValue);</span>
+<span class="nc" id="L103">            break;</span>
+        case DATA:
+<span class="nc" id="L105">            reserva.setData((Date) aValue);</span>
+        default:
+            // Não deve ocorrer, pois só existem 3 colunas
+<span class="nc" id="L108">            throw new IndexOutOfBoundsException(&quot;columnIndex out of bounds&quot;);</span>
+        }
+
+<span class="nc" id="L111">        fireTableCellUpdated(rowIndex, columnIndex); // Notifica a atualização da célula</span>
+<span class="nc" id="L112">    }</span>
+    
+    // Retorna a reserva referente a linha especificada
+    public Reserva getReserva(int indiceLinha) {
+<span class="nc" id="L116">        return linhas.get(indiceLinha);</span>
+    }
+
+    // Adiciona a reserva especificada ao modelo
+    public void addReserva(Reserva reserva) {
+        // Adiciona o registro.
+<span class="nc" id="L122">        linhas.add(reserva);</span>
+
+        // Pega a quantidade de registros e subtrai 1 para
+        // achar o último índice. A subtração é necessária
+        // porque os índices começam em zero.
+<span class="nc" id="L127">        int ultimoIndice = getRowCount() - 1;</span>
+
+        // Notifica a mudança.
+<span class="nc" id="L130">        fireTableRowsInserted(ultimoIndice, ultimoIndice);</span>
+<span class="nc" id="L131">    }</span>
+    
+    // Adiciona uma lista de reservas no final da lista.
+    public void addListaDeReservas(List&lt;Reserva&gt; reservas) {
+        // Pega o tamanho antigo da tabela, que servirá
+        // como índice para o primeiro dos novos registros
+<span class="fc" id="L137">        int indice = getRowCount();</span>
+
+        // Adiciona os registros.
+<span class="fc" id="L140">        linhas.addAll(reservas);</span>
+
+        // Notifica a mudança.
+<span class="fc" id="L143">        fireTableRowsInserted(indice, indice + reservas.size());</span>
+<span class="fc" id="L144">    }</span>
+
+    // Remove todos os registros.
+    public void limpar() {
+        // Remove todos os elementos da lista de sócios.
+<span class="nc" id="L149">        linhas.clear();</span>
+
+        // Notifica a mudança.
+<span class="nc" id="L152">        fireTableDataChanged();</span>
+<span class="nc" id="L153">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

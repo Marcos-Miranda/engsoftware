@@ -112,25 +112,22 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(CampoLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(CampoSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(102, 102, 102))
+                .addGap(92, 92, 92))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(ltitulo)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(lLogin))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(CampoLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lLogin)
+                    .addComponent(CampoLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lSenha)
                     .addComponent(CampoSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lfunção)
                     .addComponent(RbAluno)
@@ -157,17 +154,9 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_RbAlunoActionPerformed
 
     private void BconfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BconfirmarActionPerformed
-        if(RbAluno.isSelected()){
-            if(CampoLogin.getText().trim().equals("") && CampoSenha.getText().trim().equals("")){
-                JOptionPane.showMessageDialog(null,"Os campos não foram preenchidos");
-            }
-            else if(CampoLogin.getText().trim().equals("")){
-                JOptionPane.showMessageDialog(null,"Preencha o campo Login antes de confirmar");
-            }
-            else if(CampoSenha.getText().trim().equals("")){
-                JOptionPane.showMessageDialog(null,"Preencha o campo Senha antes de confirmar");
-            }
-            else{
+        String ver=Controle.verificaCampos(CampoLogin.getText().trim(),CampoSenha.getText().trim());
+        if(ver.equals("Ok")){
+            if(RbAluno.isSelected()){
                 try {
                     Controle.autenticarAluno(CampoLogin.getText(),CampoSenha.getText());
                 } 
@@ -175,28 +164,21 @@ public class Login extends javax.swing.JFrame {
                     Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        }
-        else if(RbProfessor.isSelected()){
-            if(CampoLogin.getText().trim().equals("") && CampoSenha.getText().trim().equals("")){
-                JOptionPane.showMessageDialog(null,"Os campos não foram preenchidos");
-            }
-            else if(CampoLogin.getText().trim().equals("")){
-                JOptionPane.showMessageDialog(null,"Preencha o campo Login antes de confirmar");
-            }
-            else if(CampoSenha.getText().trim().equals("")){
-                JOptionPane.showMessageDialog(null,"Preencha o campo Senha antes de confirmar");
-            }
-            else{
+            else if(RbProfessor.isSelected()){
                 try {
                     Controle.autenticarProfessor(CampoLogin.getText(),CampoSenha.getText());
                 } 
                 catch (SQLException ex) {
                     Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }    
+            }
+            else{
+                ver = "Nenhuma opção foi selecionada";
+                JOptionPane.showMessageDialog(null,ver);
+            }
         }
         else{
-            JOptionPane.showMessageDialog(null, "Nenhuma opção foi selecionada");
+            JOptionPane.showMessageDialog(null,ver);
         }
     }//GEN-LAST:event_BconfirmarActionPerformed
 
